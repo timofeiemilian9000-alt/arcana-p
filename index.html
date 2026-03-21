@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Santuario del Destino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --magic-purple: #2d0b4d;
+            --magic-gold: #d4af37;
+            --crystal-glow: rgba(138, 43, 226, 0.6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #1a062d 0%, #05010a 100%);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--magic-gold);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        /* Ambientazione Stanza */
+        .room-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1515405299443-f71bb40409cd?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        /* Sfera di Cristallo */
+        .crystal-ball-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 40px;
+        }
+
+        .crystal-ball {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent),
+                        radial-gradient(circle at center, var(--crystal-glow), #4b0082);
+            border-radius: 50%;
+            box-shadow: 0 0 50px var(--crystal-glow), inset 0 0 30px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .crystal-ball::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent 40%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 50px var(--crystal-glow); }
+            50% { transform: scale(1.05); box-shadow: 0 0 80px var(--crystal-glow); }
+        }
+
+        /* Pulsante Zoom */
+        .zoom-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: transparent;
+            border: 2px solid var(--magic-gold);
+            color: var(--magic-gold);
+            padding: 12px 24px;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        .zoom-btn:hover {
+            background: var(--magic-gold);
+            color: black;
+            box-shadow: 0 0 20px var(--magic-gold);
+        }
+
+        /* Supporto Patreon */
+        .patreon-link {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .patreon-link:hover {
+            background: rgba(255, 66, 77, 0.2);
+            border-color: #ff424d;
+        }
+
+        .patreon-icon {
+            color: #ff424d;
+            font-size: 1.5rem;
+        }
+
+        /* Effetto Fumo */
+        .smoke {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            opacity: 0.3;
+        }
+
+        .base {
+            width: 200px;
+            height: 40px;
+            background: #1a1a1a;
+            border-radius: 50% / 100% 100% 0 0;
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 10px 20px black;
+            border-top: 2px solid #333;
+        }
+
+        .message {
+            margin-top: 2rem;
+            text-align: center;
+            max-width: 400px;
+            font-style: italic;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="room-overlay"></div>
+    <div class="smoke"></div>
+
+    <h1 class="text-4xl md:text-5xl">Il Santuario Arcano</h1>
+
+    <div class="crystal-ball-container">
+        <div class="crystal-ball"></div>
+        <div class="base"></div>
+        
+        <!-- Bottone Zoom al centro della sfera -->
+        <button onclick="window.open('https://zoom.us/j/YOUR_MEETING_ID', '_blank')" class="zoom-btn">
+            Entra nella Visione
+        </button>
+    </div>
+
+    <div class="message px-4">
+        "Le stelle hanno parlato. Sei pronto a conoscere ciò che il destino ha in serbo per te?"
+    </div>
+
+    <!-- Link Patreon -->
+    <a href="https://www.patreon.com/IL_TUO_PROFILO" target="_blank" class="patreon-link">
+        <span class="patreon-icon">★</span>
+        <span>Sostieni le Arti Oscure</span>
+    </a>
+
+    <!-- Script per piccoli effetti di movimento col mouse -->
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const ball = document.querySelector('.crystal-ball');
+            const moveX = (e.clientX - window.innerWidth / 2) / 50;
+            const moveY = (e.clientY - window.innerHeight / 2) / 50;
+            
+            ball.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
+</body>
+</html>
